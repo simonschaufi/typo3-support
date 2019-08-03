@@ -1,0 +1,33 @@
+{
+  "name": "simonschaufi/typo3-support",
+  "description": "TYPO3 Support package.",
+  "keywords": [
+	"TYPO3",
+	"libphonenumber",
+	"validation",
+	"phone"
+  ],
+  "license": "MIT",
+  "authors": [
+	{
+	  "name": "Simon Schaufelberger",
+	  "email": "simonschaufi@users.noreply.github.com"
+	}
+  ],
+  "require": {
+	"php": "^7.1",
+	"ext-json": "*",
+	"ext-mbstring": "*"
+  },
+  "autoload": {
+	"psr-4": {
+	  "SimonSchaufi\\TYPO3Support\\": "src"
+	},
+	"files": [
+	  "helpers.php"
+	]
+  },
+  "config": {
+	"sort-packages": true
+  }
+}
