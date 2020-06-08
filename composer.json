@@ -3,15 +3,14 @@
   "description": "TYPO3 Support package.",
   "keywords": [
 	"TYPO3",
-	"libphonenumber",
-	"validation",
-	"phone"
+	"helpers",
+	"collection"
   ],
   "license": "MIT",
   "authors": [
 	{
 	  "name": "Simon Schaufelberger",
-	  "email": "simonschaufi@users.noreply.github.com"
+	  "email": "simonschaufi+typo3support@gmail.com"
 	}
   ],
   "require": {
