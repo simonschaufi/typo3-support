@@ -1,17 +1,18 @@
 <?php
+
 declare(strict_types=1);
 
 namespace SimonSchaufi\TYPO3Support;
 
 /**
- * @mixin \SimonSchaufi\TYPO3Support\Collection
+ * @mixin Collection
  */
 class HigherOrderCollectionProxy
 {
     /**
      * The collection being operated on.
      *
-     * @var \SimonSchaufi\TYPO3Support\Collection
+     * @var Collection
      */
     protected $collection;
 
@@ -25,7 +26,7 @@ class HigherOrderCollectionProxy
     /**
      * Create a new proxy instance.
      *
-     * @param \SimonSchaufi\TYPO3Support\Collection $collection
+     * @param Collection $collection
      * @param string $method
      * @return void
      */
