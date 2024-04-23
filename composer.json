@@ -1,32 +1,38 @@
 {
   "name": "simonschaufi/typo3-support",
   "description": "TYPO3 Support package.",
-  "keywords": [
-	"TYPO3",
-	"helpers",
-	"collection"
-  ],
   "license": "MIT",
+  "keywords": [
+    "TYPO3",
+    "helpers",
+    "collection"
+  ],
   "authors": [
-	{
-	  "name": "Simon Schaufelberger",
-	  "email": "simonschaufi+typo3support@gmail.com"
-	}
+    {
+      "name": "Simon Schaufelberger",
+      "email": "simonschaufi+typo3support@gmail.com"
+    }
   ],
   "require": {
-	"php": "^8.1",
-	"ext-json": "*",
-	"ext-mbstring": "*"
+    "php": "^8.1",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  },
+  "require-dev": {
+    "rector/rector": "^1.0"
   },
   "autoload": {
-	"psr-4": {
-	  "SimonSchaufi\\TYPO3Support\\": "src"
-	},
-	"files": [
-	  "helpers.php"
-	]
+    "psr-4": {
+      "SimonSchaufi\\TYPO3Support\\": "src"
+    },
+    "files": [
+      "helpers.php"
+    ]
   },
   "config": {
-	"sort-packages": true
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    },
+    "sort-packages": true
   }
 }

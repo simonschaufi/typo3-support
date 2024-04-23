@@ -6,60 +6,47 @@ namespace SimonSchaufi\TYPO3Support;
 
 /**
  * @mixin Collection
+ * @see https://github.com/laravel/framework/blob/11.x/src/Illuminate/Collections/HigherOrderCollectionProxy.php
  */
 class HigherOrderCollectionProxy
 {
     /**
      * The collection being operated on.
-     *
-     * @var Collection
      */
-    protected $collection;
+    protected Collection $collection;
 
     /**
      * The method being proxied.
-     *
-     * @var string
      */
-    protected $method;
+    protected string $method;
 
     /**
      * Create a new proxy instance.
-     *
-     * @param Collection $collection
-     * @param string $method
-     * @return void
      */
-    public function __construct(Collection $collection, $method)
+    public function __construct(Collection $collection, string $method)
     {
-        $this->method = $method;
         $this->collection = $collection;
+        $this->method = $method;
     }
 
     /**
      * Proxy accessing an attribute onto the collection items.
      *
-     * @param  string  $key
      * @return mixed
+     * @noinspection MagicMethodsValidityInspection
      */
-    public function __get($key)
+    public function __get(string $key)
     {
-        return $this->collection->{$this->method}(function ($value) use ($key) {
-            return is_array($value) ? $value[$key] : $value->{$key};
-        });
+        return $this->collection->{$this->method}(static fn($value) => is_array($value) ? $value[$key] : $value->{$key});
     }
 
     /**
      * Proxy a method call onto the collection items.
      *
-     * @param  string  $method
-     * @param  array  $parameters
      * @return mixed
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters)
     {
-        return $this->collection->{$this->method}(function ($value) use ($method, $parameters) {
-            return $value->{$method}(...$parameters);
-        });
+        return $this->collection->{$this->method}(static fn($value) => $value->{$method}(...$parameters));
     }
 }
