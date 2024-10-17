@@ -142,7 +142,7 @@ class Arr
      * Determine if the given key exists in the provided array.
      *
      * @param  \ArrayAccess|array  $array
-     * @param  string|int  $key
+     * @param  string|int|float  $key
      * @return bool
      */
     public static function exists($array, $key)
@@ -408,22 +408,16 @@ class Arr
      * Determines if an array is a list.
      *
      * An array is a "list" if all array keys are sequential integers starting from 0 with no gaps in between.
-     *
-     * @param  array  $array
      */
-    public static function isList($array): bool
+    public static function isList(array $array): bool
     {
         return array_is_list($array);
     }
 
     /**
      * Join all items using a string. The final items can use a separate glue string.
-     *
-     * @param  array  $array
-     * @param  string  $glue
-     * @return string
      */
-    public static function join($array, $glue, string $finalGlue = '')
+    public static function join(array $array, string $glue, string $finalGlue = ''): string
     {
         if ($finalGlue === '') {
             return implode($glue, $array);
@@ -448,7 +442,7 @@ class Arr
      * @param  array  $array
      * @param  callable|array|string  $keyBy
      */
-    public static function keyBy($array, $keyBy): array
+    public static function keyBy(array $array, $keyBy): array
     {
         return Collection::make($array)->keyBy($keyBy)->all();
     }
@@ -469,7 +463,7 @@ class Arr
      * @param  array  $array
      * @param  array|string  $keys
      */
-    public static function only($array, $keys): array
+    public static function only(array $array, $keys): array
     {
         return array_intersect_key($array, array_flip((array) $keys));
     }
@@ -594,6 +588,7 @@ class Arr
     /**
      * Run a map over each nested chunk of items.
      *
+     * @template TKey
      * @template TMapSpreadValue
      *
      * @param  callable(mixed...): TMapSpreadValue  $callback
@@ -613,7 +608,7 @@ class Arr
      * @param  array  $array
      * @return array
      */
-    public static function prepend($array, mixed $value, mixed $key = null)
+    public static function prepend(array $array, mixed $value, mixed $key = null): array
     {
         if (func_num_args() == 2) {
             array_unshift($array, $value);
@@ -644,7 +639,7 @@ class Arr
      *
      * @param  array  $array
      */
-    public static function query($array): string
+    public static function query(array $array): string
     {
         return http_build_query($array, '', '&', PHP_QUERY_RFC3986);
     }
@@ -694,7 +689,7 @@ class Arr
      * @param  array  $array
      * @param  callable|array|string|null  $callback
      */
-    public static function sort($array, $callback = null): array
+    public static function sort(array $array, $callback = null): array
     {
         return Collection::make($array)->sortBy($callback)->all();
     }
@@ -712,11 +707,8 @@ class Arr
 
     /**
      * Recursively sort an array by keys and values.
-     *
-     * @param  array  $array
-     * @return array
      */
-    public static function sortRecursive($array, int $options = SORT_REGULAR, bool $descending = false)
+    public static function sortRecursive(array $array, int $options = SORT_REGULAR, bool $descending = false): array
     {
         foreach ($array as &$value) {
             if (is_array($value)) {
@@ -739,11 +731,8 @@ class Arr
 
     /**
      * Recursively sort an array by keys and values in descending order.
-     *
-     * @param  array  $array
-     * @return array
      */
-    public static function sortRecursiveDesc($array, int $options = SORT_REGULAR)
+    public static function sortRecursiveDesc(array $array, int $options = SORT_REGULAR): array
     {
         return static::sortRecursive($array, $options, true);
     }
@@ -766,10 +755,8 @@ class Arr
 
     /**
      * If the given value is not an array and not null, wrap it in one.
-     *
-     * @return array
      */
-    public static function wrap(mixed $value)
+    public static function wrap(mixed $value): array
     {
         if (is_null($value)) {
             return [];

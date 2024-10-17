@@ -575,7 +575,7 @@ class Collection implements \ArrayAccess, Enumerable
      * @param  callable|string  $value
      * @param  string|null  $glue
      */
-    public function implode($value, $glue = null): string
+    public function implode($value, ?string $glue = null): string
     {
         if ($this->useAsCallable($value)) {
             return implode($glue ?? '', $this->map($value)->all());
@@ -721,7 +721,7 @@ class Collection implements \ArrayAccess, Enumerable
      * @param  string|null  $key
      * @return static<array-key, mixed>
      */
-    public function pluck($value, $key = null): static
+    public function pluck($value, ?string $key = null): static
     {
         return new static(Arr::pluck($this->items, $value, $key));
     }
@@ -898,10 +898,9 @@ class Collection implements \ArrayAccess, Enumerable
     /**
      * Get and remove the last N items from the collection.
      *
-     * @param  int  $count
      * @return static<int, TValue>|TValue|null
      */
-    public function pop($count = 1)
+    public function pop(int $count = 1)
     {
         if ($count === 1) {
             return array_pop($this->items);
@@ -1051,10 +1050,9 @@ class Collection implements \ArrayAccess, Enumerable
     /**
      * Get and remove the first N items from the collection.
      *
-     * @param  int  $count
      * @return static<int, TValue>|TValue|null
      */
-    public function shift($count = 1)
+    public function shift(int $count = 1)
     {
         if ($count === 1) {
             return array_shift($this->items);
@@ -1097,11 +1095,8 @@ class Collection implements \ArrayAccess, Enumerable
 
     /**
      * Slice the underlying collection array.
-     *
-     * @param  int  $offset
-     * @param int|null $length
      */
-    public function slice($offset, int $length = null): static
+    public function slice(int $offset, ?int $length = null): static
     {
         return new static(array_slice($this->items, $offset, $length, true));
     }
@@ -1148,18 +1143,17 @@ class Collection implements \ArrayAccess, Enumerable
      * @param  int  $numberOfGroups
      * @return static<int, static>
      */
-    public function splitIn($numberOfGroups): static
+    public function splitIn(int $numberOfGroups): static
     {
-        return $this->chunk(ceil($this->count() / $numberOfGroups));
+        return $this->chunk((int)ceil($this->count() / $numberOfGroups));
     }
 
     /**
      * Chunk the collection into chunks of the given size.
      *
-     * @param  int  $size
      * @return static<int, static>
      */
-    public function chunk($size): static
+    public function chunk(int $size): static
     {
         if ($size <= 0) {
             return new static;
@@ -1364,7 +1358,7 @@ class Collection implements \ArrayAccess, Enumerable
      * @param  int|null  $length
      * @param  array<array-key, TValue>  $replacement
      */
-    public function splice($offset, $length = null, $replacement = []): static
+    public function splice(int $offset, ?int $length = null, array $replacement = []): static
     {
         if (func_num_args() === 1) {
             return new static(array_splice($this->items, $offset));
@@ -1375,10 +1369,8 @@ class Collection implements \ArrayAccess, Enumerable
 
     /**
      * Take the first or last {$limit} items.
-     *
-     * @param  int  $limit
      */
-    public function take($limit): static
+    public function take(int $limit): static
     {
         if ($limit < 0) {
             return $this->slice($limit, abs($limit));
@@ -1478,7 +1470,7 @@ class Collection implements \ArrayAccess, Enumerable
      * @param  TPadValue  $value
      * @return static<int, TValue|TPadValue>
      */
-    public function pad($size, $value): static
+    public function pad(int $size, $value): static
     {
         return new static(array_pad($this->items, $size, $value));
     }

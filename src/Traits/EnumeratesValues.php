@@ -489,30 +489,24 @@ trait EnumeratesValues
 
     /**
      * Filter items by the given key value pair.
-     *
-     * @param  callable|string  $key
      */
-    public function where($key, mixed $operator = null, mixed $value = null): static
+    public function where(string $key, mixed $operator = null, mixed $value = null): static
     {
         return $this->filter($this->operatorForWhere(...func_get_args()));
     }
 
     /**
      * Filter items where the value for the given key is null.
-     *
-     * @param string|null $key
      */
-    public function whereNull(string $key = null): static
+    public function whereNull(?string $key = null): static
     {
         return $this->whereStrict($key, null);
     }
 
     /**
      * Filter items where the value for the given key is not null.
-     *
-     * @param string|null $key
      */
-    public function whereNotNull(string $key = null): static
+    public function whereNotNull(?string $key = null): static
     {
         return $this->where($key, '!==', null);
     }
@@ -868,7 +862,7 @@ trait EnumeratesValues
      * @param  string|null  $operator
      * @return \Closure
      */
-    protected function operatorForWhere($key, $operator = null, mixed $value = null)
+    protected function operatorForWhere($key, ?string $operator = null, mixed $value = null)
     {
         if ($this->useAsCallable($key)) {
             return $key;
@@ -940,17 +934,15 @@ trait EnumeratesValues
      *
      * @return \Closure(mixed): bool
      */
-    protected function equality(mixed $value)
+    protected function equality(mixed $value): \Closure
     {
         return static fn ($item): bool => $item === $value;
     }
 
     /**
      * Make a function using another function, by negating its result.
-     *
-     * @return \Closure
      */
-    protected function negate(\Closure $callback)
+    protected function negate(\Closure $callback): \Closure
     {
         return static fn (...$params): bool => ! $callback(...$params);
     }
@@ -960,7 +952,7 @@ trait EnumeratesValues
      *
      * @return \Closure(TValue): TValue
      */
-    protected function identity()
+    protected function identity(): \Closure
     {
         return static fn ($value) => $value;
     }

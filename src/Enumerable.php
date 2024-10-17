@@ -33,7 +33,7 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
      *
      * @param  callable|null  $callback
      */
-    public static function times(int $number, callable $callback = null): static;
+    public static function times(int $number, ?callable $callback = null): static;
 
     /**
      * Create a collection with the given range.
@@ -224,7 +224,7 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
     /**
      * Get all items except for those with the specified keys.
      *
-     * @param  Enumerable<array-key, TKey>|array<array-key, TKey>  $keys
+     * @param  Enumerable<array-key, TKey>|array<array-key, TKey>|string  $keys
      */
     public function except($keys): static;
 
@@ -233,28 +233,22 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
      *
      * @param  (callable(TValue): bool)|null  $callback
      */
-    public function filter(callable $callback = null): static;
+    public function filter(?callable $callback = null): static;
 
     /**
      * Filter items by the given key value pair.
-     *
-     * @param  string  $key
      */
-    public function where($key, mixed $operator = null, mixed $value = null): static;
+    public function where(string $key, mixed $operator = null, mixed $value = null): static;
 
     /**
      * Filter items where the value for the given key is null.
-     *
-     * @param string|null $key
      */
-    public function whereNull(string $key = null): static;
+    public function whereNull(?string $key = null): static;
 
     /**
      * Filter items where the value for the given key is not null.
-     *
-     * @param string|null $key
      */
-    public function whereNotNull(string $key = null): static;
+    public function whereNotNull(?string $key = null): static;
 
     /**
      * Filter items by the given key value pair using strict comparison.
@@ -322,7 +316,7 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
      * @param  TFirstDefault|(\Closure(): TFirstDefault)  $default
      * @return TValue|TFirstDefault
      */
-    public function first(callable $callback = null, $default = null);
+    public function first(?callable $callback = null, $default = null);
 
     /**
      * Get the first item by the given key value pair.
@@ -389,10 +383,10 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
     /**
      * Concatenate values of a given key as a string.
      *
-     * @param  callable|string  $value
-     * @param  string|null  $glue
+     * @param callable|string  $value
+     * @param string|null $glue
      */
-    public function implode($value, $glue = null): string;
+    public function implode($value, ?string $glue = null): string;
 
     /**
      * Intersect the collection with the given items.
@@ -471,7 +465,7 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
      * @param  TLastDefault|(\Closure(): TLastDefault)  $default
      * @return TValue|TLastDefault
      */
-    public function last(callable $callback = null, $default = null);
+    public function last(?callable $callback = null, $default = null);
 
     /**
      * Run a map over each of the items.
@@ -688,11 +682,8 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
 
     /**
      * Get a slice of items from the enumerable.
-     *
-     * @param  int  $offset
-     * @param int|null $length
      */
-    public function slice($offset, int $length = null): static;
+    public function slice(int $offset, ?int $length = null): static;
 
     /**
      * Split a collection into a certain number of groups.
@@ -704,18 +695,16 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
     /**
      * Chunk the collection into chunks of the given size.
      *
-     * @param  int  $size
      * @return static<int, static>
      */
-    public function chunk($size): static;
+    public function chunk(int $size): static;
 
     /**
      * Split a collection into a certain number of groups, and fill the first groups completely.
      *
-     * @param  int  $numberOfGroups
      * @return static<int, static>
      */
-    public function splitIn($numberOfGroups): static;
+    public function splitIn(int $numberOfGroups): static;
 
     /**
      * Sort through each item with a callback.
@@ -781,10 +770,9 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
     /**
      * Take the first or last {$limit} items.
      *
-     * @param  int  $limit
      * @return static
      */
-    public function take($limit);
+    public function take(int $limit);
 
     /**
      * Pass the collection to the given callback and then return it.
@@ -801,7 +789,7 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
      * @param  string|null  $key
      * @return static<int, mixed>
      */
-    public function pluck($value, $key = null): static;
+    public function pluck($value, ?string $key = null): static;
 
     /**
      * Create a collection of all elements that do not pass a given truth test.
@@ -845,7 +833,7 @@ interface Enumerable extends Arrayable, \Countable, \IteratorAggregate, Jsonable
      * @param  TPadValue  $value
      * @return static<int, TValue|TPadValue>
      */
-    public function pad($size, $value): static;
+    public function pad(int $size, $value): static;
 
     /**
      * Get the values iterator.
