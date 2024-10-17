@@ -66,7 +66,7 @@ if (! function_exists('with')) {
      * @param  callable|null  $callback
      * @return mixed
      */
-    function with($value, callable $callback = null)
+    function with($value, ?callable $callback = null)
     {
         return is_null($callback) ? $value : $callback($value);
     }
