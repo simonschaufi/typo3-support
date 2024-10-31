@@ -497,7 +497,7 @@ class Collection implements \ArrayAccess, Enumerable
 
         $result = new static($results);
 
-        if ($nextGroups !== []) {
+        if (! empty($nextGroups)) {
             return $result->map->groupBy($nextGroups, $preserveKeys);
         }
 
